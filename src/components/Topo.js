@@ -7,6 +7,7 @@ import Typography from "@material-ui/core/Typography";
 import InputBase from "@material-ui/core/InputBase";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import SearchIcon from "@material-ui/icons/Search";
+import logoGithub from "../img/github.png";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -68,10 +69,16 @@ export default function SearchAppBar({ pesquisa, setPesquisa }) {
 
   return (
     <div className={classes.root}>
-      <AppBar position='static' style={{ backgroundColor: "#444" }}>
+      <AppBar position='fixed' style={{ backgroundColor: "#484848" }}>
         <Toolbar>
+          <a
+            href={"https://github.com/alexsouzasilvax/PokemonChallange"}
+            target='blank'
+          >
+            <img src={logoGithub} width='50px' height='50px' alt="logo github"/>
+          </a>
           <Typography className={classes.title} variant='h6' noWrap>
-            Pokemon Challange
+            Pokémon Challange
           </Typography>
           <div className={classes.search}>
             <div className={classes.searchIcon}>

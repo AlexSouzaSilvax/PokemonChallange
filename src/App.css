@@ -5,7 +5,7 @@ ul.pokemon-list {
   align-items: center;
   flex-wrap: wrap;
   display: flex;
-  margin-top: 20px;
+  margin-top: 85px;  
 }
 
 ul.pokemon-list li {

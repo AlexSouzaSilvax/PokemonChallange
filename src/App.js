@@ -27,7 +27,7 @@ export default function App() {
 
   async function getPokemons() {
     await api
-      .get("/pokemon?limit=350") //?limit=807
+      .get("/pokemon?limit=352") //?limit=807
       .then((response) => {
         setPokemons(response.data["results"]);
         setPokemonsP(response.data["results"]);
