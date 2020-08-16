@@ -1,27 +1,36 @@
 /** @format */
 
-ul.pokemon-list {
+div.btnSair {
+  display: flex;
+  float: right;
+}
+
+div.btnSair a {
+  align-self: flex-end;
+}
+
+div.pokemon-list ul {
+  padding: 0px;
   justify-content: center;
-  align-items: center;
+  align-content: center;
   flex-wrap: wrap;
   display: flex;
-  margin-top: 85px;  
+  margin-top: 85px;
 }
 
-ul.pokemon-list li {
+div.pokemon-list li {
   display: flex;
-  flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-content: center;
 }
 
-ul.pokemon-list li header {
+div.pokemon-list li header {
   width: 100px;
   height: 100px;
   background-size: cover;
 }
 
-ul.pokemon-list li strong {
+div.pokemon-list li strong {
   align-self: center;
   margin: 10px;
   font-size: 20px;

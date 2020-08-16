@@ -69,6 +69,7 @@ export default function App() {
             default:
               break;
           }
+          return "";
         });
 
         /*console.log(
@@ -162,6 +163,7 @@ export default function App() {
         });
         setLoadingDetalhe(false);
       }
+      return "";
     });
   }
 
@@ -181,15 +183,21 @@ export default function App() {
   });
 
   return (
-    <div>
+    <>
       <Topo pesquisa={pesquisa} setPesquisa={(e) => pesquisar(e)} />
-      {loading ? <Load /> : <ul className='pokemon-list'>{listaPokemons}</ul>}
+      {loading ? (
+        <Load />
+      ) : (
+        <div className='pokemon-list'>
+          <ul>{listaPokemons}</ul>
+        </div>
+      )}
       <Detalhe
         pokemonSelecionado={pokemonSelecionado}
         detalhe={detalhe}
-        setDetalhe={setDetalhe}
+        setDetalhe={() => setDetalhe(!detalhe)}
         loading={loadingDetalhe}
       />
-    </div>
+    </>
   );
 }

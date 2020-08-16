@@ -4,6 +4,7 @@ import React from "react";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
+import iconFechar from "../img/iconFechar.png";
 
 export default function Detalhe({
   pokemonSelecionado,
@@ -14,34 +15,60 @@ export default function Detalhe({
   return (
     <Dialog
       open={detalhe}
-      onClose={() => setDetalhe(!detalhe)}
+      onClose={setDetalhe}
       aria-labelledby='alert-dialog-title'
       aria-describedby='alert-dialog-description'
     >
       {loading ? (
-        <div className='loadDetalhe'>
           <DialogContent>
             <DialogContentText id='alert-dialog-description'>
               <h4>Aguarde...</h4>
             </DialogContentText>
           </DialogContent>
-        </div>
       ) : (
         <DialogContent>
+          <div className="btnSair">
+            <a
+              onClick={(ev) => {
+                ev.preventDefault();
+                setDetalhe();
+              }}
+              href='/'
+            >
+              <img
+                src={iconFechar}
+                width='30px'
+                height='30px'
+                alt='icone fechar'
+              />
+            </a>
+          </div>
           <DialogContentText id='alert-dialog-description'>
             <h1>{pokemonSelecionado.name}</h1>
           </DialogContentText>
           <div style={{ columns: 2 }}>
-            <img
-              src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonSelecionado.id}.png`}
-              width='200px'
-              height='200px'
-              alt='imagem pokemon'
-            />
-            <p>HP: {pokemonSelecionado.hp}</p>
-            <p>Attack: {pokemonSelecionado.attack}</p>
-            <p>Defense: {pokemonSelecionado.defense}</p>
-            <p>Speed: {pokemonSelecionado.speed}</p>
+            <div>
+              <img
+                src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonSelecionado.id}.png`}
+                width='150px'
+                height='150px'
+                alt='imagem pokemon'
+              />
+            </div>
+            <div style={{ paddingLeft: "10px" }}>
+              <DialogContentText id='alert-dialog-description'>
+                HP: {pokemonSelecionado.hp}
+              </DialogContentText>
+              <DialogContentText id='alert-dialog-description'>
+                Attack: {pokemonSelecionado.attack}
+              </DialogContentText>
+              <DialogContentText id='alert-dialog-description'>
+                Defense: {pokemonSelecionado.defense}
+              </DialogContentText>
+              <DialogContentText id='alert-dialog-description'>
+                Speed: {pokemonSelecionado.speed}
+              </DialogContentText>
+            </div>
           </div>
 
           <div style={{ columns: 2 }}>
@@ -53,7 +80,7 @@ export default function Detalhe({
                 Evs: {pokemonSelecionado.evs}
               </DialogContentText>
             </div>
-            <div>
+            <div style={{ paddingLeft: "10px" }}>
               <DialogContentText id='alert-dialog-description'>
                 Height: {pokemonSelecionado.height}
               </DialogContentText>
