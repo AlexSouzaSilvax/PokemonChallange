@@ -29,11 +29,15 @@ ul.pokemon-list li strong {
 }
 
 a {
-  text-decoration: none;  
+  text-decoration: none;
 }
 
 a:hover {
   text-decoration: underline;
   color: #fff;
   cursor: pointer;
+}
+
+div.bodyDetalhe div {
+  flex-direction: "row";
 }
