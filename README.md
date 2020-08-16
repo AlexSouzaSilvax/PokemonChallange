@@ -1,10 +1,13 @@
 ## Pokémon Challange
 
-View in: http://18.222.191.167:3000/
+Open http://18.222.191.167:3000/ to view it in the server.
+
+
+
+## Available Scripts
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
 
 In the project directory, you can run:
 
