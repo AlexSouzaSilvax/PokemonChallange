@@ -169,14 +169,15 @@ export default function App() {
 
   const listaPokemons = pokemonsP.map((p) => {
     const id = p.url.split("/")[p.url.split("/").length - 2];
+    const name = p.name.charAt(0).toUpperCase() + p.name.slice(1);
     return (
       <Card
         key={p.name}
-        p={p}
+        name={name}
         id={id}
         onClickDetalhe={(ev) => {
-          ev.preventDefault();
-          buscarPokemon(id, p.name);
+          ev.preventDefault();                    
+          buscarPokemon(id, name);
         }}
       />
     );

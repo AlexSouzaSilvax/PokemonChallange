@@ -1,7 +1,7 @@
 /** @format */
 
 import React from "react";
-export default function Card({ p, id, onClickDetalhe }) {
+export default function Card({ name, id, onClickDetalhe }) {
   return (
     <li
       style={{
@@ -18,7 +18,7 @@ export default function Card({ p, id, onClickDetalhe }) {
             backgroundImage: `url(https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png)`,
           }}
         />
-        <strong>{p.name}</strong>
+        <strong>{name}</strong>
       </a>
     </li>
   );
