@@ -1,6 +1,6 @@
 ## Pokémon Challange
 
-Open http://18.222.191.167:3000/ to view it in the server.
+Open http://alexsouzasilvax.com.br/ to view it in the server.
 
 
 
