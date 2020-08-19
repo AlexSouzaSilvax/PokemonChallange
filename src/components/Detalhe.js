@@ -20,14 +20,14 @@ export default function Detalhe({
       aria-describedby='alert-dialog-description'
     >
       {loading ? (
-          <DialogContent>
-            <DialogContentText id='alert-dialog-description'>
-              <h4>Aguarde...</h4>
-            </DialogContentText>
-          </DialogContent>
+        <DialogContent>
+          <DialogContentText id='alert-dialog-description'>
+            <h4>Aguarde...</h4>
+          </DialogContentText>
+        </DialogContent>
       ) : (
         <DialogContent>
-          <div className="btnSair">
+          <div className='btnSair'>
             <a
               onClick={(ev) => {
                 ev.preventDefault();
@@ -82,10 +82,10 @@ export default function Detalhe({
             </div>
             <div style={{ paddingLeft: "10px" }}>
               <DialogContentText id='alert-dialog-description'>
-                Height: {pokemonSelecionado.height}
+                Height: {pokemonSelecionado.height} ft
               </DialogContentText>
               <DialogContentText id='alert-dialog-description'>
-                Weight: {pokemonSelecionado.weight}
+                Weight: {pokemonSelecionado.weight} lbs
               </DialogContentText>
             </div>
           </div>

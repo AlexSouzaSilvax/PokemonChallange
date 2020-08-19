@@ -7,7 +7,15 @@ import Load from "./components/Load";
 import Card from "./components/Card";
 import Detalhe from "./components/Detalhe";
 
-import { filter } from "./service/Util";
+import {
+  filter,
+  getInfoPokemons,
+  calcHeihtWheight,
+  filterEvs,
+  filterAbilities,
+  getIdPokemon,
+  getNamePokemon,
+} from "./service/Util";
 import { api } from "./service/Api";
 
 import "./App.css";
@@ -15,10 +23,10 @@ import "./App.css";
 export default function App() {
   const [pokemons, setPokemons] = useState([]); //api
   const [pokemonsP, setPokemonsP] = useState([]); //pesquisa
-  const [pesquisa, setPesquisa] = useState("");
+  const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
   const [detalhe, setDetalhe] = useState(false);
-  const [pokemonSelecionado, setPokemonSelecionado] = useState({});
+  const [selectedPokemon, setSelectedPokemon] = useState({});
   const [loadingDetalhe, setLoadingDetalhe] = useState(false);
 
   useEffect(() => {
@@ -34,131 +42,44 @@ export default function App() {
         setLoading(false);
       })
       .catch((error) => {
-        console.log(error);
+        console.error(error);
         alert("Não conseguimos encontrar os pokemons");
       });
   }
 
-  function pesquisar(param) {
-    setPesquisa(param);
+  function researching(param) {
+    setSearch(param);
     setPokemonsP(filter(param, pokemons));
   }
 
-  async function buscarPokemon(id, name) {
+  async function getPokemon(id, name) {
     setLoadingDetalhe(true);
     setDetalhe(true);
     await api
       .get(`/pokemon/${id}`)
       .then((response) => {
-        let { hp, attack, defense, speed } = "";
-
-        response.data.stats.map((stat) => {
-          switch (stat.stat.name) {
-            case "hp":
-              hp = stat["base_stat"];
-              break;
-            case "attack":
-              attack = stat["base_stat"];
-              break;
-            case "defense":
-              defense = stat["base_stat"];
-              break;
-            case "speed":
-              speed = stat["base_stat"];
-              break;
-            default:
-              break;
-          }
-          return "";
-        });
-
-        /*console.log(
-          "--------------------------------------------------> DADOS = hp: " +
-            hp +
-            ", attack: " +
-            attack +
-            ", defense: " +
-            defense +
-            ", speed: " +
-            speed
-        );*/
-
-        const height =
-          Math.round((response.data.height * 0.328084 + 0.00001) * 100) / 100;
-
-        const weight =
-          Math.round((response.data.weight * 0.220462 + 0.00001) * 100) / 100;
-
-        const evs = response.data.stats
-          .filter((stat) => {
-            if (stat.effort > 0) {
-              return true;
-            }
-            return false;
-          })
-          .map((stat) => {
-            return `${stat.effort} ${stat.stat.name
-              .toLowerCase()
-              .split("-")
-              .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
-              .join(" ")}`;
-          })
-          .join(", ");
-
-        const abilities = response.data.abilities
-          .map((ability) => {
-            return ability.ability.name
-              .toLowerCase()
-              .split("-")
-              .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
-              .join(" ");
-          })
-          .join(", ");
-
-        getDescricaoPokemon(
-          id,
-          name,
-          hp,
-          attack,
-          defense,
-          speed,
-          height,
-          weight,
-          evs,
-          abilities
-        );
+        getPokemonsEspecies(id, name, response.data);
       })
       .catch((error) => {
-        console.log("-------------------> error buscarPokemon: " + error);
+        console.error(error);
       });
   }
 
-  async function getDescricaoPokemon(
-    id,
-    name,
-    hp,
-    attack,
-    defense,
-    speed,
-    height,
-    weight,
-    evs,
-    abilities
-  ) {
-    let res = await api.get(`/pokemon-species/${id}/`);
-    res.data.flavor_text_entries.some((flavor) => {
+  async function getPokemonsEspecies(id, name, data) {
+    let response = await api.get(`/pokemon-species/${id}/`);
+    response.data.flavor_text_entries.some((flavor) => {
       if (flavor.language.name === "en") {
-        setPokemonSelecionado({
+        setSelectedPokemon({
           id,
           name,
-          hp,
-          attack,
-          defense,
-          speed,
-          height,
-          weight,
-          evs,
-          abilities,
+          hp: getInfoPokemons(data.stats, "hp"),
+          attack: getInfoPokemons(data.stats, "attack"),
+          defense: getInfoPokemons(data.stats, "defense"),
+          speed: getInfoPokemons(data.stats, "speed"),
+          height: calcHeihtWheight(data.height, 0.328084),
+          weight: calcHeihtWheight(data.weight, 0.220462),
+          evs: filterEvs(data.stats),
+          abilities: filterAbilities(data.abilities),
           description: flavor.flavor_text,
         });
         setLoadingDetalhe(false);
@@ -167,17 +88,17 @@ export default function App() {
     });
   }
 
-  const listaPokemons = pokemonsP.map((p) => {
-    const id = p.url.split("/")[p.url.split("/").length - 2];
-    const name = p.name.charAt(0).toUpperCase() + p.name.slice(1);
+  const listPokemons = pokemonsP.map((p) => {
+    const id = getIdPokemon(p.url);
+    const name = getNamePokemon(p.name);
     return (
       <Card
         key={p.name}
         name={name}
         id={id}
         onClickDetalhe={(ev) => {
-          ev.preventDefault();                    
-          buscarPokemon(id, name);
+          ev.preventDefault();
+          getPokemon(id, name);
         }}
       />
     );
@@ -185,16 +106,16 @@ export default function App() {
 
   return (
     <>
-      <Topo pesquisa={pesquisa} setPesquisa={(e) => pesquisar(e)} />
+      <Topo search={search} setSearch={(e) => researching(e)} />
       {loading ? (
         <Load />
       ) : (
         <div className='pokemon-list'>
-          <ul>{listaPokemons}</ul>
+          <ul>{listPokemons}</ul>
         </div>
       )}
       <Detalhe
-        pokemonSelecionado={pokemonSelecionado}
+        selectedPokemon={selectedPokemon}
         detalhe={detalhe}
         setDetalhe={() => setDetalhe(!detalhe)}
         loading={loadingDetalhe}
