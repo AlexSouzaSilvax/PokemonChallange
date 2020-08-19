@@ -7,7 +7,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import iconFechar from "../img/iconFechar.png";
 
 export default function Detalhe({
-  pokemonSelecionado,
+  selectedPokemon,
   detalhe,
   setDetalhe,
   loading,
@@ -44,12 +44,12 @@ export default function Detalhe({
             </a>
           </div>
           <DialogContentText id='alert-dialog-description'>
-            <h1>{pokemonSelecionado.name}</h1>
+            <h1>{selectedPokemon.name}</h1>
           </DialogContentText>
           <div style={{ columns: 2 }}>
             <div>
               <img
-                src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonSelecionado.id}.png`}
+                src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${selectedPokemon.id}.png`}
                 width='150px'
                 height='150px'
                 alt='imagem pokemon'
@@ -57,16 +57,16 @@ export default function Detalhe({
             </div>
             <div style={{ paddingLeft: "10px" }}>
               <DialogContentText id='alert-dialog-description'>
-                HP: {pokemonSelecionado.hp}
+                HP: {selectedPokemon.hp}
               </DialogContentText>
               <DialogContentText id='alert-dialog-description'>
-                Attack: {pokemonSelecionado.attack}
+                Attack: {selectedPokemon.attack}
               </DialogContentText>
               <DialogContentText id='alert-dialog-description'>
-                Defense: {pokemonSelecionado.defense}
+                Defense: {selectedPokemon.defense}
               </DialogContentText>
               <DialogContentText id='alert-dialog-description'>
-                Speed: {pokemonSelecionado.speed}
+                Speed: {selectedPokemon.speed}
               </DialogContentText>
             </div>
           </div>
@@ -74,18 +74,18 @@ export default function Detalhe({
           <div style={{ columns: 2 }}>
             <div>
               <DialogContentText id='alert-dialog-description'>
-                Abilities: {pokemonSelecionado.abilities}
+                Abilities: {selectedPokemon.abilities}
               </DialogContentText>
               <DialogContentText id='alert-dialog-description'>
-                Evs: {pokemonSelecionado.evs}
+                Evs: {selectedPokemon.evs}
               </DialogContentText>
             </div>
             <div style={{ paddingLeft: "10px" }}>
               <DialogContentText id='alert-dialog-description'>
-                Height: {pokemonSelecionado.height} ft
+                Height: {selectedPokemon.height} ft
               </DialogContentText>
               <DialogContentText id='alert-dialog-description'>
-                Weight: {pokemonSelecionado.weight} lbs
+                Weight: {selectedPokemon.weight} lbs
               </DialogContentText>
             </div>
           </div>
@@ -93,7 +93,7 @@ export default function Detalhe({
             id='alert-dialog-description'
             style={{ marginTop: "10px" }}
           >
-            {pokemonSelecionado.description}
+            {selectedPokemon.description}
           </DialogContentText>
         </DialogContent>
       )}
