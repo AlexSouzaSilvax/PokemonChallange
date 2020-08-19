@@ -64,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SearchAppBar({ pesquisa, setPesquisa }) {
+export default function SearchAppBar({ search, setSearch }) {
   const classes = useStyles();
 
   return (
@@ -75,7 +75,12 @@ export default function SearchAppBar({ pesquisa, setPesquisa }) {
             href={"https://github.com/alexsouzasilvax/PokemonChallange"}
             target='blank'
           >
-            <img src={logoGithub} width='50px' height='50px' alt="logo github"/>
+            <img
+              src={logoGithub}
+              width='50px'
+              height='50px'
+              alt='logo github'
+            />
           </a>
           <Typography className={classes.title} variant='h6' noWrap>
             Pokémon Challange
@@ -85,9 +90,9 @@ export default function SearchAppBar({ pesquisa, setPesquisa }) {
               <SearchIcon />
             </div>
             <InputBase
-              placeholder='Pesquisa'
-              value={pesquisa}
-              onChange={(event) => setPesquisa(event.target.value)}
+              placeholder='Search'
+              value={search}
+              onChange={(event) => setSearch(event.target.value)}
               classes={{
                 root: classes.inputRoot,
                 input: classes.inputInput,
