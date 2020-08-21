@@ -1,6 +1,6 @@
 ## Pokémon Challange
 
-Open http://alexsouzasilvax.com.br/ to view it in the server.
+Open http://alexsouzasilvax.com.br/ or https://alex-pokemon-challange.herokuapp.com/ to view it in the server.
 
 
 
